@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: database
+spec:
+  replicas: 1
+  selector: {}
+  serviceName: database
+  template:
+    spec:
+      containers:
+        - name: database
+          image: postgres:15
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: database
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: database
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: database
+                  name: database
+          ports:
+            - containerPort: 5432
+              name: database
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql/data
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: initdb
+          configMap:
+            name: database
+            items:
+              - key: initdb.sql
+                path: initdb.sql
+  volumeClaimTemplates:
+    - metadata:
+        name: database
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi

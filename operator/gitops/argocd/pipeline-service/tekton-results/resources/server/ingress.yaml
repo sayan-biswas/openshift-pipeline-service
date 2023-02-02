@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: server
+spec:
+  tls:
+    - secretName: server-tls
+      hosts:
+        - server.apps.com
+  rules:
+    - host: server.apps.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: server
+                port:
+                  number: 50051
+          - path: /v1alpha2
+            pathType: Prefix
+            backend:
+              service:
+                name: server
+                port:
+                  number: 8080

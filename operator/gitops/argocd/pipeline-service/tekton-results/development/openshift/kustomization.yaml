@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../resources/database
+  - ../../resources/server
+  - ../../resources/watcher
+
+components:
+  - ../../components/openshift
+  - ../../components/shared
+
+images:
+  - name: quay.io/redhat-pipeline-service/tekton-results-server
+    newName: quay.io/redhat-appstudio/tekton-results-api
+    digest: sha256:56471d0c0582e8c4e4c109ef615b66e94a7fba258ab5960e36adce71d5a6e7f1
+  - name: quay.io/redhat-pipeline-service/tekton-results-watcher
+    newName: quay.io/redhat-appstudio/tekton-results-watcher
+    digest: sha256:2a3ae9fca05bfef0195f6d11a2c1b6111288617bad4f7106400330c7fb016d14
+
+

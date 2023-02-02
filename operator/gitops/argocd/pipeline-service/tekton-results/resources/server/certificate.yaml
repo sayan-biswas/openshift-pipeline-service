@@ -1,0 +1,19 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tekton-results
+spec:
+  isCA: true
+  commonName: server.tekton-results.svc
+  dnsNames:
+    - server.tekton-results.svc
+    - server.tekton-results.svc.cluster.local
+  secretName: server-tls
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: tekton-results
+    kind: Issuer
+    group: cert-manager.io

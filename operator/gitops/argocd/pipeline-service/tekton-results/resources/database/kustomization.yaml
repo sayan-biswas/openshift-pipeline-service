@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+  - statefulset.yaml
+  - service.yaml
+
+commonLabels:
+  app.kubernetes.io/name: database
+
+configMapGenerator:
+  - name: database
+    files:
+      - initdb.sql=initdb.sql
+
+secretGenerator:
+  - name: database
+    type: Opaque
+    envs:
+      - secret.env

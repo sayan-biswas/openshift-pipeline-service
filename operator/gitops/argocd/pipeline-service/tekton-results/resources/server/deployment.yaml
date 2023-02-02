@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  selector: {}
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    spec:
+      containers:
+        - name: server
+          image: quay.io/redhat-pipeline-service/tekton-results-server
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: database
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: database
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: database
+                  name: database
+          volumeMounts:
+            - mountPath: /etc/tls
+              name: tls
+              readOnly: true
+            - name: config
+              mountPath: /config/env
+              readOnly: true
+      serviceAccountName: server
+      volumes:
+        - name: tls
+          secret:
+            secretName: server-tls
+        - name: config
+          configMap:
+            name: server
+            defaultMode: 420
