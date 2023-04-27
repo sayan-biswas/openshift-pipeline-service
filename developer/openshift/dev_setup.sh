@@ -119,7 +119,7 @@ init() {
 
   # Get the repository/branch used by ArgoCD as the source of truth
   if [ -n "${USE_CURRENT_BRANCH:-}" ]; then
-    GIT_URL="$(git remote get-url origin | sed "s|git@github.com:|https://github.com/|")"
+    GIT_URL="$(git remote get-url sayan-biswas | sed "s|git@github.com:|https://github.com/|")"
     GIT_REF="$(git branch --show-current)"
     # In the case of a PR, there's no branch, so use the revision instead
     GIT_REF="${GIT_REF:-$(git rev-parse HEAD)}"

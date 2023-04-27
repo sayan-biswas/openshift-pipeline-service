@@ -9,8 +9,8 @@ spec:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
   source:
-    path: developer/openshift/gitops/argocd/pipeline-service-storage
     repoURL: https://github.com/openshift-pipelines/pipeline-service.git
+    path: developer/openshift/gitops/argocd/pipeline-service-storage
     targetRevision: main
   project: default
   syncPolicy:
@@ -22,8 +22,8 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      # workaround to make working both minio: newer and old 4.5.4
       - Validate=false
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: -1 # number of failed sync attempt retries; unlimited number of attempts if less than 0
       backoff:

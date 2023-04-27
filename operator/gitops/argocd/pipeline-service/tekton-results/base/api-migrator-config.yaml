@@ -21,13 +21,11 @@ spec:
                   name: tekton-results-database
                   key: db.password
             - name: DB_HOST
-              value:
               valueFrom:
                 secretKeyRef:
                   name: tekton-results-database
                   key: db.host
             - name: DB_NAME
-              value:
               valueFrom:
                 secretKeyRef:
                   name: tekton-results-database

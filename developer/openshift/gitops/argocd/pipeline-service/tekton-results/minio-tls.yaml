@@ -10,7 +10,7 @@ spec:
       volumes:
         - name: ca-s3
           secret:
-            secretName: storage-tls
+            secretName: minio-storage-tls
             items:
               - key: public.crt
                 path: s3-cert.crt
