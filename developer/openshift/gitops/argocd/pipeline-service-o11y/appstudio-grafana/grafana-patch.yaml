@@ -1,0 +1,9 @@
+---
+apiVersion: integreatly.org/v1alpha1
+kind: Grafana
+metadata:
+  namespace: appstudio-grafana
+  name: grafana-oauth
+spec:
+  deployment:
+    replicas: 1
