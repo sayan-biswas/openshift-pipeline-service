@@ -288,6 +288,13 @@ test_security() {
 }
 
 test_results() {
+  # Check logs for OCP bug https://issues.redhat.com/browse/OCPBUGS-5916
+  pattern="http2: server: error reading preface from client +.+ read: connection reset by peer"
+  if kubectl logs deployment/tekton-results-api -c "api" -n "$NAMESPACE" 2>&1 | grep -ciqE "$pattern"; then
+    echo "Log has error: http2: server: error reading preface from client"
+    exit 1
+  fi
+
   test_pipelines
   echo -n "  - Results in database:"
 
