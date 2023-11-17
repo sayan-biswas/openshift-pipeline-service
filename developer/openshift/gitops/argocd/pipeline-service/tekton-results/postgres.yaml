@@ -1,0 +1,13 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-results-api
+spec:
+  template:
+    spec:
+      containers:
+        - name: api
+          env:
+            - name: DB_SSLMODE
+              value: "disable"
