@@ -12,7 +12,7 @@ spec:
         - name: api
           env:
             - name: LOGS_API
-              value: "true"
+              value: "false"
             - name: LOGS_TYPE
               value: S3
             - name: S3_HOSTNAME_IMMUTABLE

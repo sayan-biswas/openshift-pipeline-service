@@ -29,5 +29,5 @@ data:
       }
     }
   # Adjust logging level of the watcher and controller
-  loglevel.watcher: info
-  loglevel.controller: info
+  loglevel.watcher: "debug"
+  loglevel.controller: "debug"

@@ -11,6 +11,11 @@ spec:
     spec:
       containers:
         - name: watcher
+          resources:
+            requests:
+              memory: "32Mi"
+            limits:
+              memory: "64Mi"
           args:
             [
               "-api_addr",

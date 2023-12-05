@@ -43,6 +43,7 @@ patches:
   - path: watcher-service-sync.yaml
   - path: api-kube-rbac-proxy.yaml
   - path: watcher-kube-rbac-proxy.yaml
+  - path: watcher-profiling.yaml
   - path: watcher-service-patch.yaml
     target:
       version: v1
